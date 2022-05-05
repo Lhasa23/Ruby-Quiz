@@ -31,6 +31,7 @@ class SolitaireCipherTest < Minitest::Test
 
   def test_transform_number_to_string_when_number_non_positive
     assert_equal 'O', @cipher.decrypt('L', 'W')
+    assert_equal 'Z', @cipher.decrypt('L', 'L')
   end
 
   #   C + D => 7

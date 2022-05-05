@@ -25,7 +25,7 @@ class SolitaireCipher
 
   def transform_number_to_char(number)
     return (number - 26 + CONSTANT).chr if number > 26
-    return (number + 26 + CONSTANT).chr if number < 0
+    return (number + 26 + CONSTANT).chr unless number.positive?
     (number + CONSTANT).chr
   end
 
