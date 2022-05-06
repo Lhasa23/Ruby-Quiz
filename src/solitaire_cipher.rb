@@ -10,7 +10,7 @@ class SolitaireCipher
   end
 
   def encrypt(plain_text, key)
-    handle_cipher(key, plain_text) do |char_number, key_number|
+    handle_cipher(key, format_plain_text(plain_text)) do |char_number, key_number|
        char_number + key_number
     end
   end
@@ -19,6 +19,16 @@ class SolitaireCipher
     handle_cipher(key, secret_text) do |char_number, key_number|
       char_number - key_number
     end
+  end
+
+  def format_plain_text(plain_text)
+    fpt = plain_text.gsub(/\s+/, '').upcase
+    fpt.ljust(fpt.size.fdiv(5).ceil * 5, 'X')
+    # l= fpt.size / 5
+    # if fpt.size % 5 > 0
+    #   l =  l + 1
+    # end
+    # fpt.ljust(5 * l, 'X')
   end
 
   private

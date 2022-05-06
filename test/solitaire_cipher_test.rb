@@ -36,9 +36,6 @@ class SolitaireCipherTest < Minitest::Test
 
   #   C + D => 7
   #   7 => G
-  def test_encrypt_one_char
-    assert_equal 'G', @cipher.encrypt('C', 'D')
-  end
 
   def test_encrypt_string
     assert_equal 'GLNCQ', @cipher.encrypt('CODEI', 'DWJXH')
@@ -47,10 +44,9 @@ class SolitaireCipherTest < Minitest::Test
   #  CODEI => GLNCQ
   #  COD => CODXX => encrypt message
   #  CODEI NRUBY LIVEL ONGER => GLNCQ MJAFF FVOMB JIYCB
-  #
 
   # GLNCQ => CODEI
-  #
+
   def test_decrypt_one_char
     assert_equal 'C', @cipher.decrypt('G', 'D')
   end
@@ -58,4 +54,21 @@ class SolitaireCipherTest < Minitest::Test
   def test_decrypt_string
     assert_equal 'CODEI', @cipher.decrypt('GLNCQ', 'DWJXH')
   end
+
+  def test_format_a_group_plain_text
+    assert_equal 'CVBNM', @cipher.format_plain_text('cvbnm')
+  end
+
+  def test_format_a_sentence_plain_text
+    assert_equal 'CODEINRUBYLIVELONGER', @cipher.format_plain_text('code in Ruby live longer')
+  end
+
+  def test_format_plain_text_when_a_sentence_not_divided_by_5
+    assert_equal 'CODEINRUBYLIVELONGERNOWXX', @cipher.format_plain_text('code in Ruby live longer now')
+  end
+
+  def test_encrypt_with_any_plain_text
+    assert_equal 'GLNCF', @cipher.encrypt('code', 'DWJXH')
+  end
+
 end
