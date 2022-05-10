@@ -6,15 +6,6 @@ class SolitaireCipherTest < Minitest::Test
     @cipher = SolitaireCipher.new
   end
 
-  #  Key: DWJXH YRFDG TMSHP UURXJ
-  #  A..Z 1 - 26
-  # ASCII A - ' '
-  #   A - ' '
-  # HASH A => 1
-  #   init { A => 1, ...}
-  #  Happy Path:
-  #  C => G
-  #   C => 3, D => 4
   def test_transform_string_to_number
     assert_equal [3], @cipher.transform_string_to_numbers('C')
     assert_equal [3, 4], @cipher.transform_string_to_numbers('CD')
@@ -34,18 +25,9 @@ class SolitaireCipherTest < Minitest::Test
     assert_equal 'Z', @cipher.decrypt('L', 'L')
   end
 
-  #   C + D => 7
-  #   7 => G
-
   def test_encrypt_string
     assert_equal 'GLNCQ', @cipher.encrypt('CODEI', 'DWJXH')
   end
-
-  #  CODEI => GLNCQ
-  #  COD => CODXX => encrypt message
-  #  CODEI NRUBY LIVEL ONGER => GLNCQ MJAFF FVOMB JIYCB
-
-  # GLNCQ => CODEI
 
   def test_decrypt_one_char
     assert_equal 'C', @cipher.decrypt('G', 'D')
