@@ -23,10 +23,10 @@ class PileTest < Minitest::Test
     assert_equal 4, card_suits.size
     assert_equal card_suits.sort, Card::SUITS.sort
 
-    assert_equal Pile.new([Card.new(1, Card::CLUB)]).card_suits, [Card::CLUB]
+    assert_equal Pile.new([Card.new(value: 1)]).card_suits, [Card::CLUB]
   end
 
   def test_pile_card_value_from_1_to_52
-    assert_equal (1..52).to_a, Pile.new.cards.map { |card| card.value }
+    assert_equal (1..52).to_a, Pile.new.card_values
   end
 end

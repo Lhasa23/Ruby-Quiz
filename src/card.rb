@@ -5,14 +5,19 @@ class Card
   SPADE = 'Spade'.freeze
   SUITS = [CLUB, DIAMOND, HEART, SPADE].freeze
 
-  attr_reader :suit, :number
-
-  def initialize(number, suit)
-    @suit = suit
-    @number = number
+  def initialize(value: 0)
+    @value = value
   end
 
   def value
-    SUITS.index(@suit) * 13 + @number
+    @value
+  end
+
+  def suit
+    SUITS[(@value - 1) / 13]
+  end
+
+  def number
+    (@value - 1) % 13 + 1
   end
 end

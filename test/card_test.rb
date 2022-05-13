@@ -2,17 +2,19 @@ require 'minitest/autorun'
 require '../src/card'
 
 class CardTest < Minitest::Test
-  def test_generate_card_with_suit_and_number
-    card = Card.new(1, 'Club')
+  def test_initialize_card_by_value
+    card = Card.new(value: 13)
 
-    assert_equal 'Club', card.suit
-    assert_equal 1, card.number
+    assert_equal Card::CLUB, card.suit
+    assert_equal 13, card.number
+
+    card = Card.new(value: 37)
+
+    assert_equal Card::HEART, card.suit
+    assert_equal 11, card.number
   end
 
   def test_card_value
-    assert_equal 1, Card.new(1, Card::CLUB).value
-    assert_equal 14, Card.new(1, Card::DIAMOND).value
-    assert_equal 27, Card.new(1, Card::HEART).value
-    assert_equal 40, Card.new(1, Card::SPADE).value
+    assert_equal 1, Card.new(value: 1).value
   end
 end
