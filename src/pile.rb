@@ -5,7 +5,7 @@ class Pile
 
   def initialize(cards = nil)
     if cards.nil?
-      @cards = Array.new(52) { |index| Card.new(value: index + 1) }
+      @cards = (1..54).to_a.shuffle.map { |value| Card.new(value: value) }
     else
       @cards = cards
     end
@@ -21,5 +21,10 @@ class Pile
 
   def card_values
     @cards.map(&:value)
+  end
+
+  def order!
+    @cards.sort_by!(&:value)
+    self
   end
 end

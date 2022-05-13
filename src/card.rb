@@ -3,6 +3,8 @@ class Card
   DIAMOND = 'Diamond'.freeze
   HEART = 'Heart'.freeze
   SPADE = 'Spade'.freeze
+  JOKER_A = 'Joker_a'.freeze
+  JOKER_B = 'Joker_b'.freeze
   SUITS = [CLUB, DIAMOND, HEART, SPADE].freeze
 
   def initialize(value: 0)
