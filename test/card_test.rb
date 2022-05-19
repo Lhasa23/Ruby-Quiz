@@ -17,4 +17,8 @@ class CardTest < Minitest::Test
   def test_card_value
     assert_equal 1, Card.new(value: 1).value
   end
+
+  def test_card_sort_by_value
+    assert_equal [1, 3], [Card.new(value: 3), Card.new(value: 1)].sort.map(&:value)
+  end
 end

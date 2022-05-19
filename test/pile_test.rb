@@ -23,13 +23,33 @@ class PileTest < Minitest::Test
   end
 
   def test_disordered_pile_order
-    cards_a = (1..13).to_a.shuffle.map { |i| Card.new(value: i) }
-    assert_equal Pile.new(cards_a).order!.card_values, (1..13).to_a
+    cards = [Card.new(value: 3), Card.new(value: 1), Card.new(value: 10), Card.new(value: 8)]
+    assert_equal Pile.new(cards).order!.card_values, [1, 3, 8, 10]
   end
 
-  #   move_joker_a
-  #     determined joker-a card
-  #     move joker-a card to next 1 card
+  def test_move_joker_a_to_next_1_card
+    cards = [Card.new(value: 13), Card.new(value: 54), Card.new(value: 53), Card.new(value: 8), Card.new(value: 24)]
+    assert_equal [13, 54, 8, 53, 24], Pile.new(cards).move_joker_a!.card_values
+  end
 
+  def test_move_joker_a_to_next_1_card_in_limited
+    cards = [Card.new(value: 13), Card.new(value: 54), Card.new(value: 12), Card.new(value: 8), Card.new(value: 53)]
+    assert_equal [13, 53, 54, 12, 8], Pile.new(cards).move_joker_a!.card_values
+  end
+
+  #   move_joker_b
+  #     determined joker-b card
+  #     move joker-b card to next 2 card
+
+  def test_move_joker_b_to_next_2_card
+    cards = [Card.new(value: 13), Card.new(value: 54), Card.new(value: 53), Card.new(value: 8), Card.new(value: 24)]
+    assert_equal [13, 53, 8, 54, 24], Pile.new(cards).move_joker_b!.card_values
+  end
+  def test_move_joker_b_to_next_2_card_in_limited
+    cards = [Card.new(value: 13), Card.new(value: 12), Card.new(value: 53), Card.new(value: 54), Card.new(value: 24)]
+    assert_equal [13, 54, 12, 53, 24], Pile.new(cards).move_joker_b!.card_values
+    cards = [Card.new(value: 13), Card.new(value: 12), Card.new(value: 53), Card.new(value: 24), Card.new(value: 54)]
+    assert_equal [13, 12, 54, 53, 24], Pile.new(cards).move_joker_b!.card_values
+  end
 
 end

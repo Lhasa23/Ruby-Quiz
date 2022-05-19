@@ -22,4 +22,8 @@ class Card
   def number
     (@value - 1) % 13 + 1
   end
+
+  def <=>(other_card)
+    @value <=> other_card.value
+  end
 end
