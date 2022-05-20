@@ -37,14 +37,11 @@ class PileTest < Minitest::Test
     assert_equal [13, 53, 54, 12, 8], Pile.new(cards).move_joker_a!.card_values
   end
 
-  #   move_joker_b
-  #     determined joker-b card
-  #     move joker-b card to next 2 card
-
   def test_move_joker_b_to_next_2_card
     cards = [Card.new(value: 13), Card.new(value: 54), Card.new(value: 53), Card.new(value: 8), Card.new(value: 24)]
     assert_equal [13, 53, 8, 54, 24], Pile.new(cards).move_joker_b!.card_values
   end
+
   def test_move_joker_b_to_next_2_card_in_limited
     cards = [Card.new(value: 13), Card.new(value: 12), Card.new(value: 53), Card.new(value: 54), Card.new(value: 24)]
     assert_equal [13, 54, 12, 53, 24], Pile.new(cards).move_joker_b!.card_values
@@ -52,4 +49,15 @@ class PileTest < Minitest::Test
     assert_equal [13, 12, 54, 53, 24], Pile.new(cards).move_joker_b!.card_values
   end
 
+  def test_triple_cut
+    cards = [Card.new(value: 2), Card.new(value: 53), Card.new(value: 3), Card.new(value: 4), Card.new(value: 54)]
+    assert_equal [53, 3, 4, 54, 2], Pile.new(cards).triple_cut!.card_values
+    cards = [Card.new(value: 2), Card.new(value: 53), Card.new(value: 3), Card.new(value: 4), Card.new(value: 54), Card.new(value: 8)]
+    assert_equal [8, 53, 3, 4, 54, 2], Pile.new(cards).triple_cut!.card_values
+  end
+
+  def test_count_cut
+    cards = [Card.new(value: 8), Card.new(value: 53), Card.new(value: 3), Card.new(value: 4), Card.new(value: 54), Card.new(value: 2)]
+    assert_equal [3, 4, 54, 2, 8, 53], Pile.new(cards).count_cut!.card_values
+  end
 end

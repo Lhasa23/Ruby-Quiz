@@ -1,30 +1,28 @@
 require_relative 'card'
 
 class Pile
-  attr_reader :cards
-
   def initialize(cards = nil)
-    if cards.nil?
-      @cards = (1..54).to_a.shuffle.map { |value| Card.new(value: value) }
-    else
-      @cards = cards
-    end
+    @cards = cards
+  end
+
+  def cards
+    @cards ||= (1..54).to_a.shuffle.map { |value| Card.new(value: value) }
   end
 
   def card_size
-    @cards.size
+    cards.size
   end
 
   def card_suits
-    @cards.group_by(&:suit).keys & Card::SUITS
+    cards.group_by(&:suit).keys & Card::SUITS
   end
 
   def card_values
-    @cards.map(&:value)
+    cards.map(&:value)
   end
 
   def order!
-    @cards.sort!
+    cards.sort!
     self
   end
 
@@ -38,21 +36,47 @@ class Pile
     self
   end
 
+  def triple_cut!
+    top_joker_index, bottom_joker_index = triple_cut_indexes
+
+    top = cards.slice(0...top_joker_index)
+    bottom = cards.slice((bottom_joker_index + 1)..-1)
+    between = cards.slice(top_joker_index..bottom_joker_index)
+    @cards = [*bottom, *between, *top]
+    self
+  end
+
+  def count_cut!
+    count = cards.last.value
+    top = cards.slice!(0, count)
+    cards.concat(top)
+    self
+  end
+
   private
+
+  def triple_cut_indexes
+    joker_a_card_index = index_of_card(Card.new(value: 53))
+    joker_b_card_index = index_of_card(Card.new(value: 54))
+
+    return [joker_a_card_index, joker_b_card_index] if joker_a_card_index < joker_b_card_index
+
+    [joker_b_card_index, joker_a_card_index]
+  end
 
   def move_card(step, card)
     card_index = index_of_card(card)
 
-    if card_index + step + 1 > @cards.size
-      @cards.insert(card_index + step + 1 - @cards.size, card)
-      @cards.delete_at(card_index + 1)
+    if card_index + step + 1 > cards.size
+      cards.insert(card_index + step + 1 - cards.size, card)
+      cards.delete_at(card_index + 1)
     else
-      @cards.insert(card_index + step + 1, card)
-      @cards.delete_at(card_index)
+      cards.insert(card_index + step + 1, card)
+      cards.delete_at(card_index)
     end
   end
 
   def index_of_card(card)
-    @cards.index { |card_item| card_item.value == card.value }
+    cards.index { |card_item| card_item.value == card.value }
   end
 end
