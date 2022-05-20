@@ -7,7 +7,7 @@ class Card
   JOKER_B = 'Joker_b'.freeze
   SUITS = [CLUB, DIAMOND, HEART, SPADE].freeze
 
-  def initialize(value: 0)
+  def initialize(value = 0)
     @value = value
   end
 

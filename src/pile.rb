@@ -6,7 +6,7 @@ class Pile
   end
 
   def cards
-    @cards ||= (1..54).to_a.shuffle.map { |value| Card.new(value: value) }
+    @cards ||= (1..54).to_a.shuffle.map { |value| Card.new(value) }
   end
 
   def card_size
@@ -27,12 +27,12 @@ class Pile
   end
 
   def move_joker_a!
-    move_card(1, Card.new(value: 53))
+    move_card(1, Card.new(53))
     self
   end
 
   def move_joker_b!
-    move_card(2, Card.new(value: 54))
+    move_card(2, Card.new(54))
     self
   end
 
@@ -56,8 +56,8 @@ class Pile
   private
 
   def triple_cut_indexes
-    joker_a_card_index = index_of_card(Card.new(value: 53))
-    joker_b_card_index = index_of_card(Card.new(value: 54))
+    joker_a_card_index = index_of_card(Card.new(53))
+    joker_b_card_index = index_of_card(Card.new(54))
 
     return [joker_a_card_index, joker_b_card_index] if joker_a_card_index < joker_b_card_index
 
