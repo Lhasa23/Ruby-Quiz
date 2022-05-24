@@ -26,4 +26,9 @@ class Card
   def <=>(other_card)
     @value <=> other_card.value
   end
+
+  def to_char
+    return (value - 26 + 64).chr if value > 26
+    (value + 64).chr
+  end
 end

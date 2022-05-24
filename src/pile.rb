@@ -49,11 +49,14 @@ class Pile
   def count_cut!
     count = cards.last.value
     top = cards.slice!(0, count)
-    cards.concat(top)
+    last_card = cards.pop
+    @cards = [*cards, *top, last_card]
     self
   end
 
-  private
+  def read_card
+    cards[cards.first.value].to_char
+  end
 
   def triple_cut_indexes
     joker_a_card_index = index_of_card(Card.new(53))

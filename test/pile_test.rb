@@ -3,7 +3,6 @@ require '../src/pile'
 require '../src/card'
 
 class PileTest < Minitest::Test
-  # Pile
   def test_pile_generate_cards
     pile = Pile.new
     assert_equal 54, pile.card_size
@@ -58,6 +57,11 @@ class PileTest < Minitest::Test
 
   def test_count_cut
     cards = [Card.new(8), Card.new(53), Card.new(3), Card.new(4), Card.new(54), Card.new(2)]
-    assert_equal [3, 4, 54, 2, 8, 53], Pile.new(cards).count_cut!.card_values
+    assert_equal [3, 4, 54, 8, 53, 2], Pile.new(cards).count_cut!.card_values
+  end
+  
+  def test_read_card_value
+    cards = [Card.new(2), Card.new(3), Card.new(8)]
+    assert_equal 'H', Pile.new(cards).read_card
   end
 end
